@@ -105,27 +105,27 @@ function gerarPDF() {
         img.src = imageUrl;
 
         img.onload = function () {
-            // Cria um novo PDF no formato A4 paisagem
+            // Cria um novo PDF no formato A4 retrato
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF({
-                orientation: 'landscape',
+                orientation: 'portrait',
                 unit: 'mm',
                 format: 'a4'
             });
 
-            // Dimensões do PDF A4 paisagem em mm
-            const pdfWidth = 297;  // A4 paisagem largura
-            const pdfHeight = 210; // A4 paisagem altura
+            // Dimensões do PDF A4 retrato em mm
+            const pdfWidth = 210;  // A4 retrato largura
+            const pdfHeight = 297; // A4 retrato altura
 
-            // Dimensões desejadas do cartão em mm
-            const cardWidth = 130;  // 13cm
-            const cardHeight = 85;  // 8.5cm
+            // Dimensões desejadas do cartão em mm (reduzidas em 20%)
+            const cardWidth = 104;  // 13cm * 0.8 = 10.4cm
+            const cardHeight = 68;  // 8.5cm * 0.8 = 6.8cm
 
             // Calcula a posição para centralizar o cartão na página
             const x = (pdfWidth - cardWidth) / 2;
             const y = (pdfHeight - cardHeight) / 2;
 
-            // Adiciona a imagem ao PDF com as dimensões exatas de 13x8.5cm
+            // Adiciona a imagem ao PDF com as dimensões reduzidas
             pdf.addImage(imageUrl, 'PNG', x, y, cardWidth, cardHeight);
 
             // Salva o PDF

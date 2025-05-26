@@ -54,8 +54,8 @@ Acesse em: [CardGenerator](https://ismaelsidney.github.io/cardgenerator/)
 ## Preview
 
 ![screenshot](./img/Screenshot_13.png)
-![screenshot](./img/Screenshot_14.png)
 ![screenshot](./img/Screenshot_15.png)
+![screenshot](./img/Screenshot_14.png)
 ![screenshot](./img/Screenshot_16.png)
 
 ## Licença
