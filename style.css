@@ -1,0 +1,241 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ffcc70, #ff9966);
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 1000px;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: clamp(20px, 4vw, 32px);
+}
+
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  width: 100%;
+}
+
+form input[type="text"],
+form input[type="file"],
+form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.botoes {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.botoes button {
+  padding: 12px 20px;
+  border: none;
+  background-color: #ff6600;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  flex: 1;
+  max-width: 180px;
+  transition: background-color 0.3s ease;
+}
+
+.botoes button:hover {
+  background-color: #e65c00;
+}
+
+.cartao-preview {
+  width: min(650px, 95vw);
+  aspect-ratio: 650/425;
+  background-color: #ffa500;
+  color: #000;
+  padding: min(20px, 3vw);
+  box-sizing: border-box;
+  border-radius: 15px;
+  margin-top: 40px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo-cartao {
+  text-align: center;
+  font-size: calc(min(650px, 95vw) * 0.043);
+  font-weight: bold;
+  margin-bottom: min(20px, 3vw);
+  color: #333;
+  width: 100%;
+}
+
+.conteudo-cartao {
+  display: flex;
+  align-items: center;
+  gap: min(40px, 6vw);
+  width: 100%;
+  height: 100%;
+}
+
+.imagem-circular {
+  position: relative;
+  width: min(200px, 30%);
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  border-radius: 50%;
+  background: white;
+  border: min(5px, 0.8vw) solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.imagem-circular img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.dados {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: min(10px, 1.5vw);
+}
+
+.dados p {
+  font-size: calc(min(650px, 95vw) * 0.029);
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dados p strong {
+  min-width: calc(min(650px, 95vw) * 0.138);
+  display: inline-block;
+  flex-shrink: 0;
+  font-size: inherit;
+}
+
+.campo {
+  background: white;
+  padding: min(8px, 1.2vw) min(12px, 1.8vw);
+  border-radius: 8px;
+  margin-left: min(10px, 1.5vw);
+  display: inline-block;
+  flex: 1;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: inherit;
+  min-width: 0;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  form {
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .botoes {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .botoes button {
+    max-width: none;
+  }
+
+  /* Ajustes para garantir que o texto caiba nas labels em telas menores */
+  .dados p {
+    font-size: 16px;
+  }
+
+  .dados p strong {
+    font-size: 16px;
+  }
+
+  .campo {
+    font-size: 16px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .cartao-preview {
+    margin-top: 20px;
+  }
+
+  /* Ajustes adicionais para telas muito pequenas */
+  .dados p {
+    font-size: 14px;
+  }
+
+  .dados p strong {
+    font-size: 14px;
+  }
+
+  .campo {
+    font-size: 14px;
+    padding: 3px 6px;
+  }
+}

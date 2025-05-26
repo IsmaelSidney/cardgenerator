@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Cartão de Identificação</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Gerador de Cartão de Identificação</h1>
+
+    <form id="formulario">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" required placeholder="Ex: Piu-Piu">
+
+      <label for="especie">Espécie:</label>
+      <input type="text" id="especie" required placeholder="Ex: Canário-da-terra">
+
+      <label for="sexo">Sexo:</label>
+      <select id="sexo" required>
+        <option value="">Selecione</option>
+        <option value="Macho">Macho</option>
+        <option value="Fêmea">Fêmea</option>
+      </select>
+
+      <label for="anilha">Anilha:</label>
+      <input type="text" id="anilha" required placeholder="Ex: BR 001 2024">
+
+      <label for="ctf">Reg. CTF:</label>
+      <input type="text" id="ctf" required placeholder="Ex: 123.456-78">
+
+      <label for="criador">Criador:</label>
+      <input type="text" id="criador" required placeholder="Ex: João da Silva">
+
+      <label for="imagem">Imagem do Pássaro:</label>
+      <input type="file" id="imagem" accept="image/*" required>
+
+      <div class="botoes">
+        <button type="button" onclick="gerarCartao()">Ver Cartão</button>
+        <button type="button" onclick="gerarPDF()">Gerar PDF</button>
+      </div>
+    </form>
+
+    <div id="preview" class="cartao-preview" style="display: none;">
+      <div class="titulo-cartao">CARTÃO DE IDENTIFICAÇÃO</div>
+
+      <div class="conteudo-cartao">
+        <div class="imagem-circular">
+          <img id="bgImagem" src="" alt="Imagem do Canário" />
+        </div>
+
+        <div class="dados">
+          <p><strong>Nome:</strong> <span class="campo" id="cardNome"></span></p>
+          <p><strong>Espécie:</strong> <span class="campo" id="cardEspecie"></span></p>
+          <p><strong>Sexo:</strong> <span class="campo" id="cardSexo"></span></p>
+          <p><strong>Anilha:</strong> <span class="campo" id="cardAnilha"></span></p>
+          <p><strong>Reg. CTF:</strong> <span class="campo" id="cardCTF"></span></p>
+          <p><strong>Criador:</strong> <span class="campo" id="cardCriador"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
