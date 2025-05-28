@@ -2,6 +2,9 @@ body {
   margin: 0;
   padding: 0;
   background: linear-gradient(135deg, #ffcc70, #ff9966);
+  background-image: url(./img/bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
   font-family: Arial, sans-serif;
   min-height: 100vh;
   display: flex;
@@ -17,6 +20,7 @@ body {
   width: 100%;
   max-width: 1000px;
   box-sizing: border-box;
+  
 }
 
 h1 {
@@ -24,6 +28,9 @@ h1 {
   margin-bottom: 30px;
   text-align: center;
   font-size: clamp(20px, 4vw, 32px);
+  background-color: aliceblue;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 form {
@@ -146,39 +153,39 @@ form select {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: min(10px, 1.5vw);
+  gap: min(18px, 1.5vw);
+  font-size: 20px;
 }
 
 .dados p {
   font-size: calc(min(650px, 95vw) * 0.029);
   margin: 0;
   display: flex;
-  align-items: baseline;
-  white-space: nowrap;
-  overflow: hidden;
+  align-items: center; 
 }
 
 .dados p strong {
-  min-width: calc(min(650px, 95vw) * 0.138);
+  width: 95px; 
   display: inline-block;
-  flex-shrink: 0;
+  flex-shrink: 0; 
   font-size: inherit;
+  padding-right: 5px; 
+  box-sizing: border-box;
 }
 
 .campo {
   background: white;
-  padding: min(8px, 1.2vw) min(12px, 1.8vw);
+  padding: 4px 8px; 
   border-radius: 8px;
-  margin-left: min(10px, 1.5vw);
-  display: inline-block;
-  flex: 1;
-  box-sizing: border-box;
   border: 1px solid #ddd;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: inherit;
-  min-width: 0;
+  line-height: 1.2; 
+  overflow-wrap: break-word;
+  word-break: break-all;
+  display: block; 
+  flex: 1; 
+  min-width: 0; 
+  overflow: hidden; 
+  font-size: 16px; 
 }
 
 /* Media Queries */
@@ -207,6 +214,12 @@ form select {
   }
 
   .dados p strong {
+    width: 85px; 
+    display: inline-block;
+    flex-shrink: 0; 
+    font-size: inherit;
+    padding-right: 5px; 
+    box-sizing: border-box;
     font-size: 16px;
   }
 
@@ -231,6 +244,7 @@ form select {
   }
 
   .dados p strong {
+    width: 75px;
     font-size: 14px;
   }
 
@@ -238,4 +252,42 @@ form select {
     font-size: 14px;
     padding: 3px 6px;
   }
+}
+
+/* ESTILOS PARA O SELETOR DE CORES */
+#color-selector {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#color-selector p {
+  margin: 0 0 10px 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.color-options {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.color-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  transition: transform 0.2s;
+}
+
+.color-circle:hover {
+  transform: scale(1.1);
 }

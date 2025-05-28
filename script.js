@@ -20,7 +20,6 @@ function gerarCartao() {
     const reader = new FileReader();
     reader.onload = function (e) {
         document.getElementById('bgImagem').src = e.target.result;
-
         document.getElementById('cardNome').textContent = nome;
         document.getElementById('cardEspecie').textContent = especie;
         document.getElementById('cardSexo').textContent = sexo;
@@ -29,6 +28,7 @@ function gerarCartao() {
         document.getElementById('cardCriador').textContent = criador;
 
         document.getElementById('preview').style.display = 'flex';
+        document.getElementById('color-selector').style.display = 'block';
     };
 
     reader.onerror = function (e) {
@@ -47,65 +47,42 @@ function gerarPDF() {
         return;
     }
 
-    const bgImagem = document.getElementById('bgImagem');
-    if (!bgImagem.complete || !bgImagem.naturalHeight) {
-        alert("Aguarde a imagem carregar completamente antes de gerar o PDF.");
-        return;
-    }
-
     const pdfButton = document.querySelector('.botoes button:last-child');
     const originalButtonText = pdfButton.textContent;
     pdfButton.textContent = 'Gerando PDF...';
     pdfButton.disabled = true;
 
-    // Forçar a exibição do preview
-    previewElement.style.display = 'flex';
+    // 1. Pega a cor de fundo ATUAL do cartão para usar no PDF
+    const computedStyle = window.getComputedStyle(previewElement);
+    const backgroundColor = computedStyle.backgroundColor;
 
-    // Configurações do html2canvas
     const options = {
-        scale: 2,
+        scale: 3, // Aumenta a escala para uma qualidade de imagem superior no PDF
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#ffa500',
-        width: 650,
-        height: 425,
-        onclone: function (clonedDoc) {
+        backgroundColor: backgroundColor, // Usa a cor selecionada pelo usuário
+
+        // 2. A MUDANÇA PRINCIPAL: Injetar os estilos do CSS no elemento clonado
+        onclone: (clonedDoc) => {
+            // Pega a tag <link> do seu style.css do documento principal
+            const styleLink = document.querySelector('link[rel="stylesheet"]');
+            if (styleLink) {
+                // E a injeta no <head> do documento que será renderizado pelo html2canvas
+                clonedDoc.head.appendChild(styleLink.cloneNode(true));
+            }
+            // Garante que o elemento a ser clonado esteja visível e sem margens
             const clonedElement = clonedDoc.querySelector('#preview');
             clonedElement.style.display = 'flex';
-            clonedElement.style.position = 'relative';
-            clonedElement.style.width = '650px';
-            clonedElement.style.height = '425px';
-
-            const imgCircular = clonedElement.querySelector('.imagem-circular');
-            if (imgCircular) {
-                imgCircular.style.width = '200px';
-                imgCircular.style.height = '200px';
-                imgCircular.style.borderRadius = '50%';
-                imgCircular.style.overflow = 'hidden';
-                imgCircular.style.border = '5px solid #fff';
-            }
-
-            const campos = clonedElement.querySelectorAll('.campo');
-            campos.forEach(campo => {
-                campo.style.backgroundColor = 'white';
-                campo.style.padding = '6px 12px';
-                campo.style.borderRadius = '8px';
-                campo.style.border = '1px solid #ddd';
-            });
+            clonedElement.style.margin = '0';
         }
     };
 
-    // Primeiro gera a imagem do cartão
     html2canvas(previewElement, options).then(canvas => {
-        // Converte o canvas para uma URL de dados
         const imageUrl = canvas.toDataURL('image/png', 1.0);
-
-        // Cria uma imagem para garantir que está carregada
         const img = new Image();
         img.src = imageUrl;
 
         img.onload = function () {
-            // Cria um novo PDF no formato A4 retrato
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF({
                 orientation: 'portrait',
@@ -113,39 +90,45 @@ function gerarPDF() {
                 format: 'a4'
             });
 
-            // Dimensões do PDF A4 retrato em mm
-            const pdfWidth = 210;  // A4 retrato largura
-            const pdfHeight = 297; // A4 retrato altura
+            const pdfWidth = 210;
+            const pdfHeight = 297;
+            
+            // Dimensões do cartão de crédito padrão (85.6mm x 53.98mm)
+            const cardWidth = 85.6;
+            const cardHeight = 53.98;
 
-            // Dimensões desejadas do cartão em mm (reduzidas em 20%)
-            const cardWidth = 104;  // 13cm * 0.8 = 10.4cm
-            const cardHeight = 68;  // 8.5cm * 0.8 = 6.8cm
-
-            // Calcula a posição para centralizar o cartão na página
             const x = (pdfWidth - cardWidth) / 2;
             const y = (pdfHeight - cardHeight) / 2;
 
-            // Adiciona a imagem ao PDF com as dimensões reduzidas
             pdf.addImage(imageUrl, 'PNG', x, y, cardWidth, cardHeight);
-
-            // Salva o PDF
             pdf.save('cartao-identificacao.pdf');
 
-            // Restaura o botão
             pdfButton.textContent = originalButtonText;
             pdfButton.disabled = false;
         };
 
         img.onerror = function () {
-            console.error("Erro ao carregar a imagem para o PDF");
             pdfButton.textContent = originalButtonText;
             pdfButton.disabled = false;
-            alert("Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.");
+            alert("Ocorreu um erro ao gerar a imagem para o PDF. Tente novamente.");
         };
     }).catch(error => {
-        console.error("Erro ao gerar PDF:", error);
+        console.error("Erro no html2canvas:", error);
         pdfButton.textContent = originalButtonText;
         pdfButton.disabled = false;
         alert("Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.");
     });
 }
+
+// Alterar cor do cartão
+document.addEventListener('DOMContentLoaded', () => {
+    const colorCircles = document.querySelectorAll('.color-circle');
+    const cardPreview = document.getElementById('preview');
+
+    colorCircles.forEach(circle => {
+        circle.addEventListener('click', () => {
+            const color = circle.dataset.color;
+            cardPreview.style.backgroundColor = color;
+        });
+    });
+});
