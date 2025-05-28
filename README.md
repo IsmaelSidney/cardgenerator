@@ -9,7 +9,7 @@ Acesse em: [CardGenerator](https://ismaelsidney.github.io/cardgenerator/)
 - Formulário para preenchimento dos dados do pássaro
 - Upload de imagem do pássaro
 - Visualização prévia do cartão em tempo real
-- Geração de PDF no formato A4 paisagem (cartão 13x8.5cm)
+- Geração de PDF no formato A4 paisagem (cartão 10.4x6.8cm)
 - Conversão automática dos textos para maiúsculas
 - Design responsivo
 - Interface amigável e intuitiva
