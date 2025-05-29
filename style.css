@@ -179,8 +179,7 @@ form select {
   border-radius: 8px;
   border: 1px solid #ddd;
   line-height: 1.2; 
-  overflow-wrap: break-word;
-  word-break: break-all;
+  white-space: nowrap;
   display: block; 
   flex: 1; 
   min-width: 0; 
