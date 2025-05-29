@@ -57,20 +57,16 @@ function gerarPDF() {
     const backgroundColor = computedStyle.backgroundColor;
 
     const options = {
-        scale: 3, // Aumenta a escala para uma qualidade de imagem superior no PDF
+        scale: 3, 
         useCORS: true,
         allowTaint: true,
-        backgroundColor: backgroundColor, // Usa a cor selecionada pelo usuário
-
-        // 2. A MUDANÇA PRINCIPAL: Injetar os estilos do CSS no elemento clonado
+        backgroundColor: backgroundColor, 
+        
         onclone: (clonedDoc) => {
-            // Pega a tag <link> do seu style.css do documento principal
             const styleLink = document.querySelector('link[rel="stylesheet"]');
             if (styleLink) {
-                // E a injeta no <head> do documento que será renderizado pelo html2canvas
                 clonedDoc.head.appendChild(styleLink.cloneNode(true));
             }
-            // Garante que o elemento a ser clonado esteja visível e sem margens
             const clonedElement = clonedDoc.querySelector('#preview');
             clonedElement.style.display = 'flex';
             clonedElement.style.margin = '0';
@@ -93,7 +89,7 @@ function gerarPDF() {
             const pdfWidth = 210;
             const pdfHeight = 297;
             
-            // Dimensões do cartão de crédito padrão (85.6mm x 53.98mm)
+            // Dimensões do cartão de crédito padrão (105mm x 70mm)
             const cardWidth = 105;
             const cardHeight = 70;
 
