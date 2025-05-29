@@ -94,8 +94,8 @@ function gerarPDF() {
             const pdfHeight = 297;
             
             // Dimensões do cartão de crédito padrão (85.6mm x 53.98mm)
-            const cardWidth = 85.6;
-            const cardHeight = 53.98;
+            const cardWidth = 105;
+            const cardHeight = 70;
 
             const x = (pdfWidth - cardWidth) / 2;
             const y = (pdfHeight - cardHeight) / 2;
